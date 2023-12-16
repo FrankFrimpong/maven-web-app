@@ -1,11 +1,11 @@
 pipeline {
-  agent {label 'Node1'}
+  agent any
   tools {
-    maven 'maven3.8.8'
+    maven 'maven3.9.4'
   }
   environment {
     DEPLOY_ENV = 'staging'
-    GIT_REPO_URL = 'https://github.com/SusanOnuorah/maven-web-app.git'
+    GIT_REPO_URL = 'https://github.com/FrankFrimpong/maven-web-app.git'
   }
   stages{
     stage('Clone from Github'){
@@ -41,7 +41,7 @@ pipeline {
       steps{
         script {
           if (env.DEPLOY_ENV == 'staging'){
-          deploy adapters: [tomcat9(credentialsId: 'Tomcat_Cred', path: '', url: 'http://3.98.54.231:7000/')], contextPath: null, war: 'target/*war'
+          deploy adapters: [tomcat9(credentialsId: 'Tomcat_Cred', path: '', url: 'http://3.133.124.2:7000/')], contextPath: null, war: 'target/*war'
           }
           else if (env.DEPLOY_ENV == 'production'){
             echo 'Deploying to production tomcat'
